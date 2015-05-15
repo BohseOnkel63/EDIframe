@@ -25,21 +25,17 @@ public class EDIframe {
             System.out.println(item + "=" + System.getProperty(item));
         }*/
         BGM sBGM = new BGM();
-        sBGM.eC002.e3055.setContent("380");
+        sBGM.eC002.e1001.setContent("380");
         sBGM.eC002.e1000.setContent("1000");
         sBGM.e1004.setContent("123456789");
         sBGM.e1225.setContent("9");
+        DTM sDTM = new DTM("137", "20150515", "102");
         try {
             sBGM.validate();
-            System.out.println(sBGM.toString());
-        } catch(ValidityException ve) {
-            System.out.println("Error: " + ve.getMessage());
-        }
-        DTM sDTM = new DTM("137", "", "");
-        try {
             sDTM.validate();
+            System.out.println(sBGM.toString());
             System.out.println(sDTM.toString());
-        } catch (ValidityException ve) {
+        } catch(ValidityException ve) {
             System.out.println("Error: " + ve.getMessage());
         }
     }

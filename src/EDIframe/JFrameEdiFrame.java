@@ -6,6 +6,7 @@
 package EDIframe;
 
 import UN_EDIFACT.V4.UNB;
+import UN_EDIFACT.ValidityException;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -186,13 +187,14 @@ public class JFrameEdiFrame extends javax.swing.JFrame {
                 
                 UNB = new UNBsegment(this.jTextField1.getText());
                 sUNB = new UNB();
-                sUNB.setContent(this.jTextField1.getText());
-                System.out.println("UUÄNBEE: " + sUNB.toString());
+                //System.out.println("Uusi UNB: " + sUNB.toString());
                 try {
-                    jTxtAreaResult.setText(UNB.getText());
+                    sUNB.setContent(this.jTextField1.getText());
+                    jTxtAreaResult.setText(sUNB.describe());
+                    //jTxtAreaResult.setText(UNB.getText());
                     //jTxtAreaResult.setFont(Font a);
-                } catch (EDIexception ex) {
-                    Logger.getLogger(JFrameEdiFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ValidityException ve) {
+                    System.out.println("validity exception!!");
                 }
                 break;
             case "UNAUNB" :

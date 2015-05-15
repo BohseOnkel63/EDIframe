@@ -92,12 +92,16 @@ public class UN_S001 {
             //e0080.setContent(array[2]);
             //e0133.setContent(array[3]);
         } catch(java.lang.ArrayIndexOutOfBoundsException ex) {
-            System.out.println("UN_S001: ArrayIndexOutOfBoundsException: " + ex.getMessage());
+            //System.out.println("UN_S001: ArrayIndexOutOfBoundsException: " + ex.getMessage());
         }
     }
     
     public String describe() {
-        String output = this.Tag + "." + e0001.describe();
+        String output = this.Tag + " " + this.Description + " " + this.LongDescription + "\n" +
+                "  " + e0001.describe() + "\n" +
+                "  " + e0002.describe() + "\n" +
+                "  " + e0080.describe() + "\n" +
+                "  " + e0133.describe() + "\n";
         return output;
     }
 }

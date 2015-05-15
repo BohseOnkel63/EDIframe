@@ -199,7 +199,14 @@ public class Element implements ElementInterface {
      * 
      */
     public String describe() {
-        String output = this.Tag + "  \"" + this.Content + "\"  " + this.FormatString + "  " + this.Description;
+        String contentStr;
+        
+        if (this.Content == null ) {
+            contentStr = "";
+        } else {
+            contentStr = this.Content;
+        }
+        String output = this.Tag + "  \"" + contentStr + "\"  " + this.FormatString + "  " + this.Description;
         return output;
     }
 }

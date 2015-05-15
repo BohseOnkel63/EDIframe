@@ -20,11 +20,12 @@ public class EdiFunctions  {
    public static String trim(String str) {
        int endpoint;
        endpoint = str.length();
-       System.out.println("EdiFunctions.trim(): str = " +  str + ", endpoint = " + endpoint);
+       //System.out.println("EdiFunctions.trim(): str = " +  str + ", endpoint = " + endpoint);
+       //System.out.println("EdiFunctions.trim(): last char: str[" + (endpoint - 1) + "]=" + str.charAt(endpoint - 1));
         for (int i = str.length() - 1; i >= 0; i--) {
             if ((str.charAt(i) == ':')||(str.charAt(i) == '+')) {
                 endpoint = i;
-                System.out.println("EdiFunctions.trim(): endpoint = " + endpoint);
+                //System.out.println("EdiFunctions.trim(): endpoint = " + endpoint);
             } else {
                 break;
             }
