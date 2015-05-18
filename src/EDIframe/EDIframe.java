@@ -8,6 +8,8 @@ package EDIframe;
 import UN_EDIFACT.D96A.BGM;
 import UN_EDIFACT.D96A.DTM;
 import UN_EDIFACT.ValidityException;
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  *
@@ -19,11 +21,10 @@ public class EDIframe {
      *
      */
     public EDIframe() {
-        /*Properties prs = System.getProperties();
 
-        for(String item : prs.stringPropertyNames()) {
-            System.out.println(item + "=" + System.getProperty(item));
-        }*/
+        Properties eProperties;
+        eProperties = new Properties();
+        
         BGM sBGM = new BGM();
         sBGM.eC002.e1001.setContent("380");
         sBGM.eC002.e1000.setContent("1000");
