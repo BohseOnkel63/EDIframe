@@ -30,12 +30,12 @@ public class EDIframe {
         sBGM.eC002.e1000.setContent("1000");
         sBGM.e1004.setContent("123456789");
         sBGM.e1225.setContent("9");
-        DTM sDTM = new DTM("137", "20150515", "102");
+        //DTM sDTM = new DTM("137", "20150515", "102");
         try {
             sBGM.validate();
-            sDTM.validate();
+            //sDTM.validate();
             System.out.println(sBGM.toString());
-            System.out.println(sDTM.toString());
+            //System.out.println(sDTM.toString());
         } catch(ValidityException ve) {
             System.out.println("Error: " + ve.getMessage());
         }
