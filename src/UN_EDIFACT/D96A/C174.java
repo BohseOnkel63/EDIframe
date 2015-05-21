@@ -1,16 +1,12 @@
 package UN_EDIFACT.D96A;
 
-import UN_EDIFACT.EdiFunctions;
-import UN_EDIFACT.ValidityException;
+import UN_EDIFACT.CompositeElement;
+import UN_EDIFACT.Element;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
-public class C174 {
-    private final String Tag = "C174";
-    private final String Description = "VALUE/RANGE";
-    private final String LongDescription = "Measurement value and relevant minimum and maximum tolerances in that order.";
-    private Boolean Mandatory;
-
-
+public class C174 extends CompositeElement {
     public E6411 e6411 = new E6411();
     public E6314 e6314 = new E6314();
     public E6162 e6162 = new E6162();
@@ -19,12 +15,14 @@ public class C174 {
 
 
     public C174() {
-        e6411.setMandatory(true);
+        this(false, null, null, null, null, null);
     }
 
 
     public C174(Boolean Mandatory, String s6411, String s6314, String s6162, String s6152, String s6432) {
-        this.Mandatory = Mandatory;
+        super("C174", "VALUE/RANGE", "Measurement value and relevant minimum and maximum tolerances in that order.");
+        this.setMandatory(Mandatory);
+        super.setElementList((ArrayList) Arrays.asList(new Element[]{e6411, e6314, e6162, e6152, e6432}));
         e6411.setContent(s6411);
         e6411.setMandatory(true);
         e6314.setContent(s6314);
@@ -33,45 +31,6 @@ public class C174 {
         e6432.setContent(s6432);
     }
 
-
-    public void validate() throws ValidityException {
-        try {
-            e6411.validate();
-            e6314.validate();
-            e6162.validate();
-            e6152.validate();
-            e6432.validate();
-        } catch(ValidityException ex) {
-            throw new ValidityException(this.Tag + "." + ex.getMessage());
-        }
-    }
-    @Override
-    public String toString() {
-        String output;
-
-        output = e6411.toString() + ":" + e6314.toString() + ":" + e6162.toString() + ":" + e6152.toString() + ":" + e6432.toString();
-        return EdiFunctions.trim(output);
-    }
-
-    public String getTag() {
-        return this.Tag;
-    }
-
-    public String getDescription() {
-        return this.Description;
-    }
-
-    public String getLongDescription() {
-        return this.LongDescription;
-    }
-
-    public void setMandatory(Boolean Mandatory) {
-        this.Mandatory = Mandatory;
-    }
-
-    public Boolean getMandatory() {
-        return this.Mandatory;
-    }
 
 }
 

@@ -1,66 +1,29 @@
 package UN_EDIFACT.D96A;
 
-import UN_EDIFACT.EdiFunctions;
-import UN_EDIFACT.ValidityException;
+import UN_EDIFACT.CompositeElement;
+import UN_EDIFACT.Element;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
-public class C239 {
-    private final String Tag = "C239";
-    private final String Description = "TEMPERATURE SETTING";
-    private final String LongDescription = "The temperature under which the goods are (to be) stored or shipped.";
-    private Boolean Mandatory;
-
-
+public class C239 extends CompositeElement {
     public E6246 e6246 = new E6246();
     public E6411 e6411 = new E6411();
 
 
     public C239() {
+        this(false, null, null);
     }
 
 
     public C239(Boolean Mandatory, String s6246, String s6411) {
-        this.Mandatory = Mandatory;
+        super("C239", "TEMPERATURE SETTING", "The temperature under which the goods are (to be) stored or shipped.");
+        this.setMandatory(Mandatory);
+        super.setElementList((ArrayList) Arrays.asList(new Element[]{e6246, e6411}));
         e6246.setContent(s6246);
         e6411.setContent(s6411);
     }
 
-
-    public void validate() throws ValidityException {
-        try {
-            e6246.validate();
-            e6411.validate();
-        } catch(ValidityException ex) {
-            throw new ValidityException(this.Tag + "." + ex.getMessage());
-        }
-    }
-    @Override
-    public String toString() {
-        String output;
-
-        output = e6246.toString() + ":" + e6411.toString();
-        return EdiFunctions.trim(output);
-    }
-
-    public String getTag() {
-        return this.Tag;
-    }
-
-    public String getDescription() {
-        return this.Description;
-    }
-
-    public String getLongDescription() {
-        return this.LongDescription;
-    }
-
-    public void setMandatory(Boolean Mandatory) {
-        this.Mandatory = Mandatory;
-    }
-
-    public Boolean getMandatory() {
-        return this.Mandatory;
-    }
 
 }
 

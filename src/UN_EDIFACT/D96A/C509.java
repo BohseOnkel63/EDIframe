@@ -1,16 +1,12 @@
 package UN_EDIFACT.D96A;
 
-import UN_EDIFACT.EdiFunctions;
-import UN_EDIFACT.ValidityException;
+import UN_EDIFACT.CompositeElement;
+import UN_EDIFACT.Element;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
-public class C509 {
-    private final String Tag = "C509";
-    private final String Description = "PRICE INFORMATION";
-    private final String LongDescription = "Identification of price type, price and related details.";
-    private Boolean Mandatory;
-
-
+public class C509 extends CompositeElement {
     public E5125 e5125 = new E5125();
     public E5118 e5118 = new E5118();
     public E5375 e5375 = new E5375();
@@ -20,12 +16,14 @@ public class C509 {
 
 
     public C509() {
-        e5125.setMandatory(true);
+        this(false, null, null, null, null, null, null);
     }
 
 
     public C509(Boolean Mandatory, String s5125, String s5118, String s5375, String s5387, String s5284, String s6411) {
-        this.Mandatory = Mandatory;
+        super("C509", "PRICE INFORMATION", "Identification of price type, price and related details.");
+        this.setMandatory(Mandatory);
+        super.setElementList((ArrayList) Arrays.asList(new Element[]{e5125, e5118, e5375, e5387, e5284, e6411}));
         e5125.setContent(s5125);
         e5125.setMandatory(true);
         e5118.setContent(s5118);
@@ -35,46 +33,6 @@ public class C509 {
         e6411.setContent(s6411);
     }
 
-
-    public void validate() throws ValidityException {
-        try {
-            e5125.validate();
-            e5118.validate();
-            e5375.validate();
-            e5387.validate();
-            e5284.validate();
-            e6411.validate();
-        } catch(ValidityException ex) {
-            throw new ValidityException(this.Tag + "." + ex.getMessage());
-        }
-    }
-    @Override
-    public String toString() {
-        String output;
-
-        output = e5125.toString() + ":" + e5118.toString() + ":" + e5375.toString() + ":" + e5387.toString() + ":" + e5284.toString() + ":" + e6411.toString();
-        return EdiFunctions.trim(output);
-    }
-
-    public String getTag() {
-        return this.Tag;
-    }
-
-    public String getDescription() {
-        return this.Description;
-    }
-
-    public String getLongDescription() {
-        return this.LongDescription;
-    }
-
-    public void setMandatory(Boolean Mandatory) {
-        this.Mandatory = Mandatory;
-    }
-
-    public Boolean getMandatory() {
-        return this.Mandatory;
-    }
 
 }
 

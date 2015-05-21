@@ -1,16 +1,12 @@
 package UN_EDIFACT.D96A;
 
-import UN_EDIFACT.EdiFunctions;
-import UN_EDIFACT.ValidityException;
+import UN_EDIFACT.CompositeElement;
+import UN_EDIFACT.Element;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
-public class C078 {
-    private final String Tag = "C078";
-    private final String Description = "ACCOUNT IDENTIFICATION";
-    private final String LongDescription = "Identification of an account holder by account number and/or account holder name in one or two lines. Number preferred.";
-    private Boolean Mandatory;
-
-
+public class C078 extends CompositeElement {
     public E3194 e3194 = new E3194();
     public E3192 e3192_1 = new E3192();
     public E3192 e3192_2 = new E3192();
@@ -18,55 +14,20 @@ public class C078 {
 
 
     public C078() {
+        this(false, null, null, null, null);
     }
 
 
     public C078(Boolean Mandatory, String s3194, String s3192_1, String s3192_2, String s6345) {
-        this.Mandatory = Mandatory;
+        super("C078", "ACCOUNT IDENTIFICATION", "Identification of an account holder by account number and/or account holder name in one or two lines. Number preferred.");
+        this.setMandatory(Mandatory);
+        super.setElementList((ArrayList) Arrays.asList(new Element[]{e3194, e3192_1, e3192_2, e6345}));
         e3194.setContent(s3194);
         e3192_1.setContent(s3192_1);
         e3192_2.setContent(s3192_2);
         e6345.setContent(s6345);
     }
 
-
-    public void validate() throws ValidityException {
-        try {
-            e3194.validate();
-            e3192_1.validate();
-            e3192_2.validate();
-            e6345.validate();
-        } catch(ValidityException ex) {
-            throw new ValidityException(this.Tag + "." + ex.getMessage());
-        }
-    }
-    @Override
-    public String toString() {
-        String output;
-
-        output = e3194.toString() + ":" + e3192_1.toString() + ":" + e3192_2.toString() + ":" + e6345.toString();
-        return EdiFunctions.trim(output);
-    }
-
-    public String getTag() {
-        return this.Tag;
-    }
-
-    public String getDescription() {
-        return this.Description;
-    }
-
-    public String getLongDescription() {
-        return this.LongDescription;
-    }
-
-    public void setMandatory(Boolean Mandatory) {
-        this.Mandatory = Mandatory;
-    }
-
-    public Boolean getMandatory() {
-        return this.Mandatory;
-    }
 
 }
 
