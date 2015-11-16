@@ -123,7 +123,7 @@ public class Segment {
         return Mandatory;
     }
 
-    public void setMandatory(Boolean Mandatory) {
+    public final void setMandatory(Boolean Mandatory) {
         this.Mandatory = Mandatory;
     }
 

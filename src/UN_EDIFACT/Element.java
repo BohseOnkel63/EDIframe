@@ -156,7 +156,7 @@ public class Element implements ElementInterface {
      * @param Mandatory
      */
     @Override
-    public void setMandatory(boolean Mandatory) {
+    public final void setMandatory(boolean Mandatory) {
         this.Mandatory = Mandatory;
     }
 

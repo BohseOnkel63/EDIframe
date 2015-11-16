@@ -1,0 +1,393 @@
+! TRCD_parser.rte
+!
+! Tämä ohjelma lukee muokattua UN-EDIFACT TRCD-tiedostoa (Composite Element directory)
+! TRCD:n muokkaukset:
+! - poista otsikkotiedot
+! - poista kaikkien rivien alusta merkkejä, kunnes Tagi on positiossa 1
+! - laita ";" jokaiselle riville tagin ja selityksen väliin, ei kuitenkaan tyhjille riveille
+!
+!------------------------------------------------------------------------
+!2.   Composite specifications
+!
+!     Change indicators
+!
+!     a plus sign (+)    for an addition
+!     an asterisk (*)    for an amendment to structure
+!     a hash sign (#)    for changes to names
+!     a vertical bar (|) for changes to text for descriptions,
+!                        notes and functions
+!     a minus sign (-)   for a deletion
+!     a X sign (X)       for marked for deletion
+!
+!ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+!
+!      C002  DOCUMENT/MESSAGE NAME
+!
+!      Desc: Identification of a type of document/message by code or
+!            name. Code preferred.
+!
+!010   1001   Document/message name, coded                  C  an..3
+!020   1131   Code list qualifier                           C  an..3
+!030   3055   Code list responsible agency, coded           C  an..3
+!040   1000   Document/message name                         C  an..35
+!
+!ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+!
+! == >
+!
+!ÄÄÄÄÄ;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+!       
+!C002 ;DOCUMENT/MESSAGE NAME
+!       
+!Desc:;Identification of a type of document/message by code or
+!       name. Code preferred.
+!       
+!1001 ; Document/message name, coded                  C  an..3
+!1131 ; Code list qualifier                           C  an..3
+!3055 ; Code list responsible agency, coded           C  an..3
+!1000 ; Document/message name                         C  an..35
+!       
+!ÄÄÄÄÄ;ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+!       
+
+
+begin
+	if pVERSION = EMPTY then
+		log("Parameter VERSION is empty! Example VERSION=D96A ", NL)
+		exit(1)
+	endif
+	nC := 0
+endbegin
+
+line(1:"C")
+	if nC > 0 then
+		tfPrintJava()
+		tTag := EMPTY
+		tDescription := EMPTY
+		tLongDescription := EMPTY
+		tElement := EMPTY
+		nElement := 0
+		nRepeatingElement := 0
+		tPrevElement := EMPTY
+		tPrevMandatory := EMPTY
+		remove(taCE)
+		nE := 0
+	endif
+	
+	nC++
+	tLine := pick(1, 1, EOL)
+	nFields := split(tLine, taLine, ";")
+	if nFields <> 2 then
+		log("Incorrect input: '", tLine, "'", NL)
+		log("Too many/few ;-characters", NL)
+		exit(1)
+	endif
+	tTag := peel(taLine[1], " ")
+	tDescription := peel(taLine[2], " ")
+	debug("Composite element ", tTag, " ", tDescription, NL)
+endline
+
+line(1:"Desc:")
+	nLine := 1
+	tLongDescription := pick(nLine, 7, EOL)
+	nLine++
+	tNext := peel(pick(nLine, 1, EOL), " ")
+	debug("nLine = ", nLine, ", tNext = '", tNext, "'", NL)
+	while tNext <> EMPTY do
+		tLongDescription := build(tLongDescription, " ", tNext)
+		nLine++
+		tNext := peel(pick(nLine, 1, EOL), " ")
+		debug("nLine = ", nLine, ", tNext = '", tNext, "'", NL)
+	endwhile
+	debug("    tLongDescription = ", tLongDescription, NL)
+
+endline
+
+line '^[0-9]{4} '
+	nElement++
+	tLine := pick(1, 1, EOL)
+	nFields := split(tLine, taLine, ";")
+	if nFields <> 2 then
+		log("Incorrect input: '", tLine, "'", NL)
+		log("Too many/few ;-characters", NL)
+		exit(1)
+	endif
+	tPrevElement := tElement
+	tElement := peel(taLine[1], " ")
+
+	!' Attribute type, coded                         M  an..3'
+	tPrevMandatory := tMandatory
+	tMandatory := substr(taLine[2], 48, 1)
+	debug(tTag, ".", tElement, " = E", tElement, ".java, ")
+	if tMandatory = "M" then
+		debug("Mandatory", NL)
+	else
+		debug("Conditional", NL)
+	endif
+
+	if tPrevElement = tElement then
+		nRepeatingElement++
+		if nRepeatingElement = 1 then
+			taCE[nElement - 1] := build(tPrevElement, "_1:", tPrevMandatory)
+		endif
+		taCE[nElement] := build(tElement, "_", nRepeatingElement + 1, ":", tMandatory)
+	else
+		nRepeatingElement := 0
+		taCE[nElement] := build(tElement, ":", tMandatory)
+	endif
+		
+	
+endline
+
+
+end
+	tfPrintJava()
+endend
+
+
+function tfPrintJava()
+	tOutput := build(tTag, ".java")
+	redirect(OUTPUT, tOutput)
+	debug("tfPrintJava() ", tTag, ", Number of elements: ", nElement, NL)
+	debug("debug(taCE):", NL)
+	debug(taCE)
+	
+	remove(naVariables)
+	remove(taVariables)
+	remove(naSeq)
+	remove(taClasses)
+	remove(taStringVariables)
+	
+	print("package UN_EDIFACT.", pVERSION, ";", NL, NL)
+
+	print("import UN_EDIFACT.CompositeElement;", NL)
+	print("import UN_EDIFACT.Element;", NL)
+	print("import java.util.ArrayList;", NL)
+	print("import java.util.Arrays;", NL, NL, NL)
+	print("public class ", tTag, " extends CompositeElement {", NL)
+		
+	while tI in taCE do
+		nFields := split(taCE[tI], taParts, ":")
+		tVariable := build("e", taParts[1])
+		naVariables[tVariable] := naVariables[tVariable] + 1
+		tClass := build("E", substr(taParts[1], 1, 4))
+		taClasses[tI] := tClass
+		tVariable := build("e", taParts[1])
+		if naVariables[tVariable] > 1 then
+			naSeq[tVariable] := naSeq[tVariable] + 1
+			tFinalVariable := build(tVariable, "_", naSeq[tVariable])
+		else
+			tFinalVariable := tVariable
+		endif
+		tStringVariable := replace(tFinalVariable, "e", "s")
+		taStringVariables[tI] := tStringVariable
+		taVariables[tI] := tFinalVariable
+	endwhile
+
+	debug("debug(taVariables):", NL)
+	debug(taVariables)
+	debug("--", NL)
+	debug("debug(taClasses):", NL)
+	debug(taClasses)
+	debug("--", NL)
+	debug("debug(taStringVariables):", NL)
+	debug(taStringVariables)
+
+	while tI in taVariables do
+		print("    public ", taClasses[tI], " ", taVariables[tI], " = new ", taClasses[tI], "();", NL)
+	endwhile
+
+
+	print(NL, NL)
+	!-------------------------------------
+	! 1. Constructor
+	!-------------------------------------
+	print("    public ", tTag, "() {", NL)
+	print("        this(false, ")
+
+	nI := 1
+	while nI <= nElement do
+		if nI = nElement then
+			print("null);", NL)
+		else
+			print("null, ")
+		endif
+		nI++
+	endwhile
+	print("    }", NL, NL, NL)
+
+	!-------------------------------------
+	! 2. Constructor
+	!-------------------------------------
+	print("    public ", tTag, "(Boolean Mandatory, ")
+	nI := 1
+	while nI <= nElement do
+		if nI = nElement then
+			print("String ", taStringVariables[nI], ") {", NL)
+		else
+			print("String ", taStringVariables[nI], ", ")
+		endif
+		nI++
+	endwhile
+	print("        super(\"", tTag, "\", \"", tDescription, "\", \"", tLongDescription, "\");", NL)
+	print("        this.setMandatory(Mandatory);", NL)
+	print("        super.setElementList((ArrayList) Arrays.asList(new Element[]{")
+	nI := 1
+	while nI <= nElement do
+		if nI = nElement then
+			print(taVariables[nI], "}));", NL)
+		else
+			print(taVariables[nI], ", ")
+		endif
+		nI++
+	endwhile
+
+
+	while tI in taCE do
+		nFields := split(taCE[tI], taParts, ":")
+		print("        ", taVariables[tI], ".setContent(", taStringVariables[tI], ");", NL)
+		if taParts[2] = "M" then
+			print("        ", taVariables[tI], ".setMandatory(true);", NL)
+		endif
+	endwhile
+	print("    }", NL, NL, NL)
+	
+	print("}", NL, NL)
+	close(tOutput)
+endfunction
+
+function tfPrintJava_old()
+	tOutput := build(tTag, ".java")
+	redirect(OUTPUT, tOutput)
+	debug("tfPrintJava() ", tTag, ", Number of elements: ", nElement, NL)
+	debug(taCE)
+	
+	remove(naVariables)
+	remove(taVariables)
+	remove(naSeq)
+	
+	print("package UN_EDIFACT.", pVERSION, ";", NL, NL)
+	print("import UN_EDIFACT.EdiFunctions;", NL)
+	print("import UN_EDIFACT.ValidityException;", NL, NL, NL)
+	print("public class ", tTag, " {", NL)
+	print("    private final String Tag = \"", tTag, "\";", NL)
+	print("    private final String Description = \"", tDescription, "\";", NL)
+	print("    private final String LongDescription = \"", tLongDescription, "\";", NL)
+	print("    private Boolean Mandatory;", NL, NL, NL)
+	
+	while tI in taCE do
+		nFields := split(taCE[tI], taParts, ":")
+		tVariable := build("e", taParts[1])
+		naVariables[tVariable] := naVariables[tVariable] + 1
+	endwhile
+	
+	
+	while tI in taCE do
+		nFields := split(taCE[tI], taParts, ":")
+		tClass := build("E", substr(taParts[1], 1, 4))
+		tVariable := build("e", taParts[1])
+		if naVariables[tVariable] > 1 then
+			naSeq[tVariable] := naSeq[tVariable] + 1
+			tFinalVariable := build(tVariable, "_", naSeq[tVariable])
+		else
+			tFinalVariable := tVariable
+		endif
+		taVariables[tI] := tFinalVariable
+		print("    public ", tClass, " ", tFinalVariable, " = new ", tClass, "();", NL)
+	endwhile
+
+	debug("debug(taVariables):", NL)
+	debug(taVariables)
+		
+	print(NL, NL)
+	!-------------------------------------
+	! 1. Constructor
+	!-------------------------------------
+	print("    public ", tTag, "() {", NL)
+	while tI in taCE do
+		nFields := split(taCE[tI], taParts, ":")
+		tVariable := build("e", taParts[1])
+		if taParts[2] = "M" then
+			print("        ", taVariables[tI], ".setMandatory(true);", NL)
+		endif
+	endwhile
+	print("    }", NL, NL, NL)
+	!-------------------------------------
+	! 2. Constructor
+	!-------------------------------------
+	print("    public ", tTag, "(Boolean Mandatory, ")
+	nI := 1
+	while nI <= nElement do
+		if nI = nElement then
+			print("String ", replace(taVariables[nI], "e", "s"), ") {", NL)
+		else
+			print("String ", replace(taVariables[nI], "e", "s"), ", ")
+		endif
+		nI++
+	endwhile
+	print("        this.setMandatory(Mandatory);", NL)
+
+	while tI in taCE do
+		nFields := split(taCE[tI], taParts, ":")
+		tVariable := build("e", taParts[1])
+		print("        ", taVariables[tI], ".setContent(", replace(taVariables[tI], "e", "s"), ");", NL)
+		if taParts[2] = "M" then
+			print("        ", taVariables[tI], ".setMandatory(true);", NL)
+		endif
+	endwhile
+	print("    }", NL, NL, NL)
+	
+	!-------------------------------------
+	! validate() function
+	!-------------------------------------
+	print("    public void validate() throws ValidityException {", NL)
+	print("        try {", NL)
+	while tI in taVariables do
+		!nFields := split(taCE[tI], taParts, ":")
+		!tVariable := build("e", taParts[1])
+		print("            ", taVariables[tI], ".validate();", NL)
+	endwhile
+	print("        } catch(ValidityException ex) {", NL)
+	print("            throw new ValidityException(this.Tag + \".\" + ex.getMessage());", NL)
+	print("        }", NL)
+	print("    }", NL)
+
+	!-------------------------------------
+	! toString() function
+	!-------------------------------------
+	print("    @Override", NL)
+	print("    public String toString() {", NL)
+	print("        String output;", NL, NL)
+	print("        output = ")
+	nI := 1
+	while nI <= nElement do
+		!nFields := split(taCE[nI], taParts, ":")
+		!tVariable := build("e", taParts[1])
+		if nI = nElement then
+			print(taVariables[nI], ".toString();", NL)
+		else
+			print(taVariables[nI], ".toString() + \":\" + ")
+		endif
+		nI++
+	endwhile
+	print("        return EdiFunctions.trim(output);", NL)
+	print("    }", NL, NL)
+	
+	print("    public String getTag() {", NL)
+	print("        return this.Tag;", NL)
+	print("    }", NL, NL)
+	print("    public String getDescription() {", NL)
+	print("        return this.Description;", NL)
+	print("    }", NL, NL)
+	print("    public String getLongDescription() {", NL)
+	print("        return this.LongDescription;", NL)
+	print("    }", NL, NL)
+	print("    public void setMandatory(Boolean Mandatory) {", NL)
+	print("        this.Mandatory = Mandatory;", NL)
+	print("    }", NL, NL)
+	print("    public Boolean getMandatory() {", NL)
+	print("        return this.Mandatory;", NL)
+	print("    }", NL, NL)
+	print("}", NL, NL)
+	close(tOutput)
+endfunction

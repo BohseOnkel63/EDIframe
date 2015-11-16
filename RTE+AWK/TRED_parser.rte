@@ -1,0 +1,86 @@
+! UN-EDIFACT TRED tiedoston parseri
+!
+!
+! EDIFACT directories:
+! http://www.unece.org/tradewelcome/areas-of-work/un-centre-for-trade-facilitation-and-e-business-uncefact/outputs/standards/unedifact/directories/download.html
+!
+
+begin
+	nSeg := 0
+endbegin
+
+
+line(1:"ÄÄÄ")
+	!log("erotin", NL, NL)
+endline
+
+line '^[\ \+\*\#\|\-\X]{3}[0-9]{4}  '
+	if nSeg > 0 then
+		tfPrintCSV()
+		tTag := EMPTY
+		tDescription := EMPTY
+		tLongDescription := EMPTY
+		tFormat := EMPTY
+		tNote := EMPTY
+	endif
+
+	nSeg++
+	tTag := pick(1, 4, 4)
+	tDescription := pick(1, 10, EOL)
+	!log("TAG: ", tTag, NL)
+	!log("  Description: ", tDescription, NL)
+	
+endline
+	
+line(4:"Desc:")
+	nLine := 1
+	!log("Desc -line", NL)
+	tLongDescription := pick(nLine, 10, EOL)
+	nLine++
+	tNext := peel(pick(nLine, 1, EOL), " ")
+	!log("nLine = ", nLine, ", tNext = '", tNext, "'", NL)
+	while tNext <> EMPTY do
+		tLongDescription := build(tLongDescription, " ", tNext)
+		nLine++
+		tNext := peel(pick(nLine, 1, EOL), " ")
+		!log("nLine = ", nLine, ", tNext = '", tNext, "'", NL)
+	endwhile
+	!log("tLongDescription = ", tLongDescription, NL)
+endline
+
+line(4:"Repr:")
+	!log("format line", NL)
+	tFormat := peel(pick(1, 10, EOL), " ")
+endline
+
+line(4:"Note:")
+	nLine := 1
+	!log("Note -line", NL)
+	tNote := pick(nLine, 10, EOL)
+	nLine++
+	tNext := peel(pick(nLine, 1, EOL), " ")
+	!log("nLine = ", nLine, ", tNext = '", tNext, "'", NL)
+	while tNext <> EMPTY do
+		tNote := build(tNote, " ", tNext)
+		nLine++
+		tNext := peel(pick(nLine, 1, EOL), " ")
+		!log("nLine = ", nLine, ", tNext = '", tNext, "'", NL)
+	endwhile
+	!log("tNote = ", tNote, NL)
+endline
+
+end
+	if nSeg > 0 then
+		tfPrintCSV()
+	endif
+endend
+
+
+function tfPrintCSV()
+	print(tTag, ";", tDescription, ";", tFormat, ";", tLongDescription, ";", tNote, NL)
+endfunction
+
+function tfPrintJavaClasses()
+	tFileName := build("E", tTag, ".java")
+
+endfunction

@@ -1,0 +1,116 @@
+begin
+	tTag := ARGV[1]
+	log("tTag = ", tTag, NL)
+	tCETag := EMPTY
+	remove(taCEParts)
+	nOrderNo := 0
+endbegin
+
+
+line(1)
+	tSEGDescription := pick(1, 1, EOL)
+	log("tSEGDescription = ", tSEGDescription, NL)
+endline
+
+!===============================================================================
+! Composite element
+!===============================================================================
+line '^C[0-9]{3}'
+	if nCEElement > 0 then
+		tfPrintCE()
+		nCEElement := 0
+	endif
+
+	tDescription := EMPTY
+	!log("Composite element ", pick(1, 1, 4), NL)
+	nFields := split(pick(1, 1, EOL), taParts, " ")
+	while tI in taParts do
+		log(" taParts[", tI, "] = '", taParts[tI], "'", NL)
+		if number(tI) > 2 then
+			if (taParts[tI] <> EMPTY) then
+				if tDescription = EMPTY then
+					tDescription := taParts[tI]
+				else
+					tDescription := build(tDescription, " ", taParts[tI])
+				endif
+			endif
+		endif
+	endwhile
+	tCETag := taParts[1]
+	tCEMandatory := taParts[2]
+	log("Composite element ", tCETag, " ", tCEMandatory, " ", tDescription, NL)
+endline
+
+
+line '^  [0-9]{4}'
+	nCEElement++
+	taCEParts[nCEElement] := tCEETag 	! composite element's element
+	nFields := split(pick(1, 3, EOL), taParts, " ")
+	!while tI in taParts do
+	!	log("  taParts[", tI, "] = ", taParts[tI], NL)
+	!endwhile
+	tCEETag := taParts[1]
+	tCEEMandatory := taParts[2]
+	tCEEFormat := taParts[3]
+	tDescription := EMPTY
+	while tI in taParts do
+		log(" taParts[", tI, "] = '", taParts[tI], "'", NL)
+		if number(tI) > 3 then
+			if (taParts[tI] <> EMPTY) then
+				if tDescription = EMPTY then
+					tDescription := taParts[tI]
+				else
+					tDescription := build(tDescription, " ", taParts[tI])
+				endif
+			endif
+		endif
+	endwhile
+	log("  Element ", tCETag, ".", tCEETag, " ", tCEEMandatory, " ", tDescription, NL)
+	taElements[tCEETag] := build(tDescription, ";", tCEEFormat, ";")
+endline
+
+
+line '^[0-9]{4}'
+	if nCEElement > 0 then
+		tfPrintCE()
+		nCEElement := 0
+	endif
+	tCETag := EMPTY
+	log("Element ", pick(1, 1, 4), NL)
+	nFields := split(pick(1, 1, EOL), taParts, " ")
+	tETag := taParts[1]
+	tEMandatory := taParts[2]
+	tEFormat := taParts[3]
+	tDescription := EMPTY
+	while tI in taParts do
+		log(" taParts[", tI, "] = '", taParts[tI], "'", NL)
+		if number(tI) > 3 then
+			if (taParts[tI] <> EMPTY) then
+				if tDescription = EMPTY then
+					tDescription := taParts[tI]
+				else
+					tDescription := build(tDescription, " ", taParts[tI])
+				endif
+			endif
+		endif
+	endwhile
+	log("  Element ", tETag, " ", tEMandatory, " ", tDescription, NL)
+	taElements[tETag] := build(tDescription, ";", tEFormat, ";")
+endline
+
+
+end
+	if nCEElement > 0 then
+		tfPrintCE()
+		nCEElement := 0
+	endif
+
+	while tI in taElements do
+		print(tI, ";", taElements[tI], NL)
+	endwhile
+endend
+
+
+function tfPrintCE()
+	log(taCEParts)
+endfunction
