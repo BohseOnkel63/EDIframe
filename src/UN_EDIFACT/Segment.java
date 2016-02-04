@@ -13,22 +13,22 @@ import java.util.ArrayList;
  * @author mannelini
  */
 public class Segment {
-    private String Tag;
-    private String Description;
-    private String LongDescription;
+    private String tag;
+    private String description;
+    private String longDescription;
 
-    private Boolean Mandatory;
-    private ArrayList ElementList;
+    private Boolean mandatory;
+    private ArrayList elementList;
 
     public Segment(String Tag, String Description, String LongDescription) {
-        this.Tag = Tag;
-        this.Description = Description;
-        this.LongDescription = LongDescription;
-        this.ElementList = new ArrayList<>();
+        this.tag = Tag;
+        this.description = Description;
+        this.longDescription = LongDescription;
+        this.elementList = new ArrayList<>();
     }
 
     public void addElement(Object O) {
-        ElementList.add(O);
+        elementList.add(O);
     }
 
     @Override
@@ -41,11 +41,11 @@ public class Segment {
         e = null;
         ce = null;
         
-        System.out.println("ElementList.size()=" + ElementList.size());
-        for (Object o : ElementList ) {
+        System.out.println("ElementList.size()=" + elementList.size());
+        for (Object o : elementList ) {
             if (o.getClass().isInstance(e)) {
                 e = (Element) o;
-                if (ElementList.indexOf(o) == 0) {
+                if (elementList.indexOf(o) == 0) {
                     output = e.toString() + "+";
                 } else {
                     output = output + e.toString() + "+";
@@ -53,7 +53,7 @@ public class Segment {
             } 
             if (o.getClass().isInstance(ce)) {
                 ce = (CompositeElement) o;
-                if (ElementList.indexOf(o) == 0) {
+                if (elementList.indexOf(o) == 0) {
                     output = ce.toString() + "+";
                 } else {
                     output = output + ce.toString() + "+";
@@ -72,7 +72,7 @@ public class Segment {
         ce = null;
         
         try {
-            for (Object o : ElementList ) {
+            for (Object o : elementList ) {
                 if (o.getClass().isInstance(e)) {
                     e = (Element) o;
                     e.validate();
@@ -96,43 +96,43 @@ public class Segment {
      * @return  
      */
     public String getTag() {
-        return Tag;
+        return tag;
     }
 
     public void setTag(String Tag) {
-        this.Tag = Tag;
+        this.tag = Tag;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String Description) {
-        this.Description = Description;
+        this.description = Description;
     }
 
     public String getLongDescription() {
-        return LongDescription;
+        return longDescription;
     }
 
     public void setLongDescription(String LongDescription) {
-        this.LongDescription = LongDescription;
+        this.longDescription = LongDescription;
     }
 
     public Boolean getMandatory() {
-        return Mandatory;
+        return mandatory;
     }
 
     public final void setMandatory(Boolean Mandatory) {
-        this.Mandatory = Mandatory;
+        this.mandatory = Mandatory;
     }
 
     public ArrayList getElementList() {
-        return ElementList;
+        return elementList;
     }
 
     public void setElementList(ArrayList ElementList) {
-        this.ElementList = ElementList;
+        this.elementList = ElementList;
     }
 
 }
