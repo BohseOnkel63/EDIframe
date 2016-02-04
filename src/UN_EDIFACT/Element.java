@@ -9,25 +9,25 @@ package UN_EDIFACT;
  * @author mannelini
  */
 public class Element implements ElementInterface {
-    private String Tag;
-    private String Description;
-    private String LongDescription;
-    private String FormatString;
-    private String Note;
-    private int MinLength;
-    private int MaxLength;
-    private String Content;
-    private boolean Mandatory;
-    private boolean Valid;
+    private String tag;
+    private String description;
+    private String longDescription;
+    private String formatString;
+    private String note;
+    private int minLength;
+    private int maxLength;
+    private String content;
+    private boolean mandatory;
+    private boolean valid;
 
     @Override
     public String getNote() {
-        return Note;
+        return note;
     }
 
     @Override
     public final void setNote(String Note) {
-        this.Note = Note;
+        this.note = Note;
     }
 
     /**
@@ -55,7 +55,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public String getFormatString() {
-        return FormatString;
+        return formatString;
     }
 
     /**
@@ -64,32 +64,32 @@ public class Element implements ElementInterface {
      */
     @Override
     public final void setFormatString(String FormatString) {
-        this.FormatString = FormatString;
+        this.formatString = FormatString;
     }
 
     
     private int getMinLength() {
-        return MinLength;
+        return minLength;
     }
 
     private void setMinLength(int MinLength) {
-        this.MinLength = MinLength;
+        this.minLength = MinLength;
     }
 
     private int getMaxLength() {
-        return MaxLength;
+        return maxLength;
     }
 
     private void setMaxLength(int MaxLength) {
-        this.MaxLength = MaxLength;
+        this.maxLength = MaxLength;
     }
 
     @Override
     public String toString() {
-        if (Content == null) {
+        if (content == null) {
             return "";
         } else {
-            return Content;
+            return content;
         }
     }
     
@@ -99,7 +99,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public void setContent(String Content) {
-        this.Content = Content;
+        this.content = Content;
     }
     
     /**
@@ -108,7 +108,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public String getTag() {
-        return Tag;
+        return tag;
     }
 
     /**
@@ -117,7 +117,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public final void setTag(String Tag) {
-        this.Tag = Tag;
+        this.tag = Tag;
     }
 
     /**
@@ -126,7 +126,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     /**
@@ -135,7 +135,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public final void setDescription(String Description) {
-        this.Description = Description;
+        this.description = Description;
     }
 
     /**
@@ -145,7 +145,7 @@ public class Element implements ElementInterface {
     @Override
     public void validate() throws ValidityException {
         try {
-            EdiFunctions.validateElement(this.Tag, this.Mandatory, this.FormatString, this.Content);
+            EdiFunctions.validateElement(this.tag, this.mandatory, this.formatString, this.content);
         } catch(ValidityException ex) {
             throw new ValidityException(ex.getMessage());
         }
@@ -157,7 +157,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public final void setMandatory(boolean Mandatory) {
-        this.Mandatory = Mandatory;
+        this.mandatory = Mandatory;
     }
 
     /**
@@ -166,7 +166,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public boolean isMandatory() {
-        return this.Mandatory;
+        return this.mandatory;
     }
     
     /**
@@ -174,7 +174,7 @@ public class Element implements ElementInterface {
      * @return
      */
     public boolean isValid() {
-        return this.Valid;
+        return this.valid;
     }
 
     /**
@@ -183,7 +183,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public String getLongDescription() {
-        return this.LongDescription;
+        return this.longDescription;
     }
 
     /**
@@ -192,7 +192,7 @@ public class Element implements ElementInterface {
      */
     @Override
     public final void setLongDescription(String LongDescription) {
-        this.LongDescription = LongDescription;
+        this.longDescription = LongDescription;
     }
 
     /**
@@ -201,12 +201,12 @@ public class Element implements ElementInterface {
     public String describe() {
         String contentStr;
         
-        if (this.Content == null ) {
+        if (this.content == null ) {
             contentStr = "";
         } else {
-            contentStr = this.Content;
+            contentStr = this.content;
         }
-        String output = this.Tag + "  \"" + contentStr + "\"  " + this.FormatString + "  " + this.Description;
+        String output = this.tag + "  \"" + contentStr + "\"  " + this.formatString + "  " + this.description;
         return output;
     }
 }
