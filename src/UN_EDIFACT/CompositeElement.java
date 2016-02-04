@@ -12,21 +12,21 @@ import java.util.ArrayList;
  * @author mannelini
  */
 public class CompositeElement {
-    private String Tag;
-    private String Description;
-    private String LongDescription;
-    private Boolean Mandatory;
-    private ArrayList<Element> ElementList;
+    private String tag;
+    private String description;
+    private String longDescription;
+    private Boolean mandatory;
+    private ArrayList<Element> elementList;
 
     public CompositeElement(String Tag, String Description, String LongDescription) {
-        this.Tag = Tag;
-        this.Description = Description;
-        this.LongDescription = LongDescription;
-        this.ElementList = new ArrayList<>();
+        this.tag = Tag;
+        this.description = Description;
+        this.longDescription = LongDescription;
+        this.elementList = new ArrayList<>();
     }
 
     public void addElement(Element E) {
-        ElementList.add(E);
+        elementList.add(E);
     }
     
     @Override
@@ -35,11 +35,11 @@ public class CompositeElement {
         output = "";
         //ArrayList<Element> eList = getElementList();
         
-        System.out.println("ElementList.size()=" + ElementList.size());
-        for (Element e : ElementList ) {
+        System.out.println("ElementList.size()=" + elementList.size());
+        for (Element e : elementList ) {
             System.out.println(e.getClass().getCanonicalName() + " " + e.getDescription() + "  " + e.getFormatString());
-            System.out.println("Objektin indeksi: " + ElementList.indexOf(e));
-            if (ElementList.indexOf(e) == 0) {
+            System.out.println("Objektin indeksi: " + elementList.indexOf(e));
+            if (elementList.indexOf(e) == 0) {
                 output = e.toString() + ":";
             } else {
                 output = output + e.toString() + ":";
@@ -51,7 +51,7 @@ public class CompositeElement {
 
     public void validate() throws ValidityException {
         try {
-            for (Element e : ElementList ) {
+            for (Element e : elementList ) {
                 e.validate();
             }
         } catch(ValidityException ex) {
@@ -60,43 +60,43 @@ public class CompositeElement {
     }
 
     public String getTag() {
-        return Tag;
+        return tag;
     }
 
     public void setTag(String Tag) {
-        this.Tag = Tag;
+        this.tag = Tag;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String Description) {
-        this.Description = Description;
+        this.description = Description;
     }
 
     public String getLongDescription() {
-        return LongDescription;
+        return longDescription;
     }
 
     public void setLongDescription(String LongDescription) {
-        this.LongDescription = LongDescription;
+        this.longDescription = LongDescription;
     }
 
     public Boolean getMandatory() {
-        return Mandatory;
+        return mandatory;
     }
 
     public final void setMandatory(Boolean Mandatory) {
-        this.Mandatory = Mandatory;
+        this.mandatory = Mandatory;
     }
 
    public ArrayList getElementList() {
-        return ElementList;
+        return elementList;
     }
 
     public void setElementList(ArrayList elementList) {
-        this.ElementList = elementList;
+        this.elementList = elementList;
     }
 
 }
