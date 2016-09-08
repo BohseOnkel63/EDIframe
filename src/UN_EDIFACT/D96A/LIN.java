@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class LIN extends Segment {
 
@@ -20,7 +19,18 @@ public class LIN extends Segment {
     public LIN(Boolean Mandatory) {
         super("LIN", "LINE ITEM", "Function: To identify a line item and configuration.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e1082, e1229, eC212, eC829, e1222, e7083}));
+        e1082 = new E1082();
+        e1229 = new E1229();
+        eC212 = new C212();
+        eC829 = new C829();
+        e1222 = new E1222();
+        e7083 = new E7083();
+        addElement(e1082);
+        addElement(e1229);
+        addElement(eC212);
+        addElement(eC829);
+        addElement(e1222);
+        addElement(e7083);
     }
 
 }

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class MSG extends Segment {
 
@@ -17,7 +16,12 @@ public class MSG extends Segment {
     public MSG(Boolean Mandatory) {
         super("MSG", "MESSAGE TYPE IDENTIFICATION", "Function: To identify a message type and to give its class and");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC709, e1507, e4513}));
+        eC709 = new C709();
+        e1507 = new E1507();
+        e4513 = new E4513();
+        addElement(eC709);
+        addElement(e1507);
+        addElement(e4513);
         eC709.setMandatory(true);
     }
 

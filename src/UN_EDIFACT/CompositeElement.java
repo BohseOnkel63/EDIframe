@@ -25,7 +25,7 @@ public class CompositeElement {
         this.elementList = new ArrayList<>();
     }
 
-    public void addElement(Element E) {
+    public final void addElement(Element E) {
         elementList.add(E);
     }
     
@@ -95,7 +95,7 @@ public class CompositeElement {
         return elementList;
     }
 
-    public void setElementList(ArrayList elementList) {
+    public void setElementList(ArrayList<Element> elementList) {
         this.elementList = elementList;
     }
 

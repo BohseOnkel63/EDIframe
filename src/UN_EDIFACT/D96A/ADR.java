@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class ADR extends Segment {
 
@@ -21,7 +20,20 @@ public class ADR extends Segment {
     public ADR(Boolean Mandatory) {
         super("ADR", "ADDRESS", "Function: To specify an address.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC817, eC090, e3164, e3251, e3207, eC819, eC517}));
+        eC817 = new C817();
+        eC090 = new C090();
+        e3164 = new E3164();
+        e3251 = new E3251();
+        e3207 = new E3207();
+        eC819 = new C819();
+        eC517 = new C517();
+        addElement(eC817);
+        addElement(eC090);
+        addElement(e3164);
+        addElement(e3251);
+        addElement(e3207);
+        addElement(eC819);
+        addElement(eC517);
     }
 
 }

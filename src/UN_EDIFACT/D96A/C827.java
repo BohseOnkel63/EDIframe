@@ -1,15 +1,12 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.CompositeElement;
-import UN_EDIFACT.Element;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class C827 extends CompositeElement {
-    public E7511 e7511 = new E7511();
-    public E1131 e1131 = new E1131();
-    public E3055 e3055 = new E3055();
+    public E7511 e7511;
+    public E1131 e1131;
+    public E3055 e3055;
 
 
     public C827() {
@@ -20,11 +17,16 @@ public class C827 extends CompositeElement {
     public C827(Boolean Mandatory, String s7511, String s1131, String s3055) {
         super("C827", "TYPE OF MARKING", "Specification of the type of marking that reflects the method that was used and the conventions adhered to for marking (e.g. of packages).");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Element[]{e7511, e1131, e3055}));
+        e7511 = new E7511();
+        e1131 = new E1131();
+        e3055 = new E3055();
         e7511.setContent(s7511);
         e7511.setMandatory(true);
         e1131.setContent(s1131);
         e3055.setContent(s3055);
+        addElement(e7511);
+        addElement(e1131);
+        addElement(e3055);
     }
 
 

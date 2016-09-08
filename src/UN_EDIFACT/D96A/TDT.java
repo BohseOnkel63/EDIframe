@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class TDT extends Segment {
 
@@ -23,7 +22,24 @@ public class TDT extends Segment {
     public TDT(Boolean Mandatory) {
         super("TDT", "DETAILS OF TRANSPORT", "Function: To specify the transport details such as mode of");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e8051, e8028, eC220, eC228, eC040, e8101, eC401, eC222, e8281}));
+        e8051 = new E8051();
+        e8028 = new E8028();
+        eC220 = new C220();
+        eC228 = new C228();
+        eC040 = new C040();
+        e8101 = new E8101();
+        eC401 = new C401();
+        eC222 = new C222();
+        e8281 = new E8281();
+        addElement(e8051);
+        addElement(e8028);
+        addElement(eC220);
+        addElement(eC228);
+        addElement(eC040);
+        addElement(e8101);
+        addElement(eC401);
+        addElement(eC222);
+        addElement(e8281);
         e8051.setMandatory(true);
     }
 

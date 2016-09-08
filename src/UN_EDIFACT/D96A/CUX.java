@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CUX extends Segment {
 
@@ -18,7 +17,14 @@ public class CUX extends Segment {
     public CUX(Boolean Mandatory) {
         super("CUX", "CURRENCIES", "Function: To specify currencies used in the transaction and");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC504_1, eC504_2, e5402, e6341}));
+        eC504_1 = new C504();
+        eC504_2 = new C504();
+        e5402 = new E5402();
+        e6341 = new E6341();
+        addElement(eC504_1);
+        addElement(eC504_2);
+        addElement(e5402);
+        addElement(e6341);
     }
 
 }

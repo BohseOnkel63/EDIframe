@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class TAX extends Segment {
 
@@ -21,7 +20,20 @@ public class TAX extends Segment {
     public TAX(Boolean Mandatory) {
         super("TAX", "DUTY/TAX/FEE DETAILS", "Function: To specify relevant duty/tax/fee information.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e5283, eC241, eC533, e5286, eC243, e5305, e3446}));
+        e5283 = new E5283();
+        eC241 = new C241();
+        eC533 = new C533();
+        e5286 = new E5286();
+        eC243 = new C243();
+        e5305 = new E5305();
+        e3446 = new E3446();
+        addElement(e5283);
+        addElement(eC241);
+        addElement(eC533);
+        addElement(e5286);
+        addElement(eC243);
+        addElement(e5305);
+        addElement(e3446);
         e5283.setMandatory(true);
     }
 

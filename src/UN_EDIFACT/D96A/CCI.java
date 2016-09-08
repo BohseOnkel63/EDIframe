@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CCI extends Segment {
 
@@ -19,7 +18,16 @@ public class CCI extends Segment {
     public CCI(Boolean Mandatory) {
         super("CCI", "CHARACTERISTIC/CLASS ID", "Function: To describe a physical or logical state.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e7059, eC502, eC240, e7001, eC564}));
+        e7059 = new E7059();
+        eC502 = new C502();
+        eC240 = new C240();
+        e7001 = new E7001();
+        eC564 = new C564();
+        addElement(e7059);
+        addElement(eC502);
+        addElement(eC240);
+        addElement(e7001);
+        addElement(eC564);
         e7001.setMandatory(true);
         eC564.setMandatory(true);
     }

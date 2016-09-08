@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class NAT extends Segment {
 
@@ -16,7 +15,10 @@ public class NAT extends Segment {
     public NAT(Boolean Mandatory) {
         super("NAT", "NATIONALITY", "Function: To specify a nationality.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e3493, eC042}));
+        e3493 = new E3493();
+        eC042 = new C042();
+        addElement(e3493);
+        addElement(eC042);
         e3493.setMandatory(true);
     }
 

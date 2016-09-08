@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CST extends Segment {
 
@@ -20,7 +19,18 @@ public class CST extends Segment {
     public CST(Boolean Mandatory) {
         super("CST", "CUSTOMS STATUS OF GOODS", "Function: To specify goods in terms of customs identities,");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e1496, eC246_1, eC246_2, eC246_3, eC246_4, eC246_5}));
+        e1496 = new E1496();
+        eC246_1 = new C246();
+        eC246_2 = new C246();
+        eC246_3 = new C246();
+        eC246_4 = new C246();
+        eC246_5 = new C246();
+        addElement(e1496);
+        addElement(eC246_1);
+        addElement(eC246_2);
+        addElement(eC246_3);
+        addElement(eC246_4);
+        addElement(eC246_5);
     }
 
 }

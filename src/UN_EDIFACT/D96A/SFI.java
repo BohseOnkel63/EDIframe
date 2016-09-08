@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SFI extends Segment {
 
@@ -18,7 +17,14 @@ public class SFI extends Segment {
     public SFI(Boolean Mandatory) {
         super("SFI", "SAFETY INFORMATION", "Function: To identify regulatory safety information.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e7164, eC814, eC815, e4513}));
+        e7164 = new E7164();
+        eC814 = new C814();
+        eC815 = new C815();
+        e4513 = new E4513();
+        addElement(e7164);
+        addElement(eC814);
+        addElement(eC815);
+        addElement(e4513);
         e7164.setMandatory(true);
     }
 

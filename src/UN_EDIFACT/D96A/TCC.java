@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class TCC extends Segment {
 
@@ -18,7 +17,14 @@ public class TCC extends Segment {
     public TCC(Boolean Mandatory) {
         super("TCC", "TRANSPORT CHARGE/RATE CALCULATIONS", "Function: To specify charges.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC200, eC203, eC528, eC554}));
+        eC200 = new C200();
+        eC203 = new C203();
+        eC528 = new C528();
+        eC554 = new C554();
+        addElement(eC200);
+        addElement(eC203);
+        addElement(eC528);
+        addElement(eC554);
     }
 
 }

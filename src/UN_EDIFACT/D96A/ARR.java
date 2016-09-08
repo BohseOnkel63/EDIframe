@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class ARR extends Segment {
 
@@ -16,7 +15,10 @@ public class ARR extends Segment {
     public ARR(Boolean Mandatory) {
         super("ARR", "ARRAY INFORMATION", "Function: To contain the data in a array.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC778, eC770}));
+        eC778 = new C778();
+        eC770 = new C770();
+        addElement(eC778);
+        addElement(eC770);
     }
 
 }

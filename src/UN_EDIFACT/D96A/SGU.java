@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SGU extends Segment {
 
@@ -21,7 +20,20 @@ public class SGU extends Segment {
     public SGU(Boolean Mandatory) {
         super("SGU", "SEGMENT USAGE DETAILS", "Function: To specify the details of the usage of a segment");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9166, e7299, e6176, e7168, e1050, e1049, e4513}));
+        e9166 = new E9166();
+        e7299 = new E7299();
+        e6176 = new E6176();
+        e7168 = new E7168();
+        e1050 = new E1050();
+        e1049 = new E1049();
+        e4513 = new E4513();
+        addElement(e9166);
+        addElement(e7299);
+        addElement(e6176);
+        addElement(e7168);
+        addElement(e1050);
+        addElement(e1049);
+        addElement(e4513);
         e9166.setMandatory(true);
     }
 

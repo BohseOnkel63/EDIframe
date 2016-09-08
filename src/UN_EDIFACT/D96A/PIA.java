@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class PIA extends Segment {
 
@@ -27,7 +26,32 @@ public class PIA extends Segment {
     public PIA(Boolean Mandatory) {
         super("PIA", "ADDITIONAL PRODUCT ID", "Function: To specify details relating to pricing of a product.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e4347, eC212_1, eC212_2, eC212_3, eC212_4, eC212_5, e1082, e1229, eC292, e7011, e5495, e1222, e7083}));
+        e4347 = new E4347();
+        eC212_1 = new C212();
+        eC212_2 = new C212();
+        eC212_3 = new C212();
+        eC212_4 = new C212();
+        eC212_5 = new C212();
+        e1082 = new E1082();
+        e1229 = new E1229();
+        eC292 = new C292();
+        e7011 = new E7011();
+        e5495 = new E5495();
+        e1222 = new E1222();
+        e7083 = new E7083();
+        addElement(e4347);
+        addElement(eC212_1);
+        addElement(eC212_2);
+        addElement(eC212_3);
+        addElement(eC212_4);
+        addElement(eC212_5);
+        addElement(e1082);
+        addElement(e1229);
+        addElement(eC292);
+        addElement(e7011);
+        addElement(e5495);
+        addElement(e1222);
+        addElement(e7083);
         e4347.setMandatory(true);
         eC212_1.setMandatory(true);
     }

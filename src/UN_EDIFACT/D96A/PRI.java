@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class PRI extends Segment {
 
@@ -24,7 +23,26 @@ public class PRI extends Segment {
     public PRI(Boolean Mandatory) {
         super("PRI", "PRICE DETAILS", "Function: To define the physical sample parameters associated");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC509, e5213, e4407, e7039, eC526, e7045, e7047, eC514_1, eC514_2, eC514_3}));
+        eC509 = new C509();
+        e5213 = new E5213();
+        e4407 = new E4407();
+        e7039 = new E7039();
+        eC526 = new C526();
+        e7045 = new E7045();
+        e7047 = new E7047();
+        eC514_1 = new C514();
+        eC514_2 = new C514();
+        eC514_3 = new C514();
+        addElement(eC509);
+        addElement(e5213);
+        addElement(e4407);
+        addElement(e7039);
+        addElement(eC526);
+        addElement(e7045);
+        addElement(e7047);
+        addElement(eC514_1);
+        addElement(eC514_2);
+        addElement(eC514_3);
     }
 
 }

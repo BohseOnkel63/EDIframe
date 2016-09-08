@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class MEA extends Segment {
 
@@ -18,7 +17,14 @@ public class MEA extends Segment {
     public MEA(Boolean Mandatory) {
         super("MEA", "MEASUREMENTS", "Function: To specify physical measurements, including dimension");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e6311, eC502, eC174, e7383}));
+        e6311 = new E6311();
+        eC502 = new C502();
+        eC174 = new C174();
+        e7383 = new E7383();
+        addElement(e6311);
+        addElement(eC502);
+        addElement(eC174);
+        addElement(e7383);
         e6311.setMandatory(true);
     }
 

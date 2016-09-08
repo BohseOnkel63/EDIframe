@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class LOC extends Segment {
 
@@ -19,7 +18,16 @@ public class LOC extends Segment {
     public LOC(Boolean Mandatory) {
         super("LOC", "PLACE/LOCATION IDENTIFICATION", "Function: To identify a country/place/location/related location");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e3227, eC517, eC519, eC553, e5479}));
+        e3227 = new E3227();
+        eC517 = new C517();
+        eC519 = new C519();
+        eC553 = new C553();
+        e5479 = new E5479();
+        addElement(e3227);
+        addElement(eC517);
+        addElement(eC519);
+        addElement(eC553);
+        addElement(e5479);
         e3227.setMandatory(true);
     }
 

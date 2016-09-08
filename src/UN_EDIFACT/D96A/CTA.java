@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CTA extends Segment {
 
@@ -16,7 +15,10 @@ public class CTA extends Segment {
     public CTA(Boolean Mandatory) {
         super("CTA", "CONTACT INFORMATION", "Function: To identify a person or a department to whom");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e3139, eC056}));
+        e3139 = new E3139();
+        eC056 = new C056();
+        addElement(e3139);
+        addElement(eC056);
     }
 
 }

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class STC extends Segment {
 
@@ -18,7 +17,14 @@ public class STC extends Segment {
     public STC(Boolean Mandatory) {
         super("STC", "STATISTICAL CONCEPT", "Function: To specify a statistical concept.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC785, eC082, e4405, e4513}));
+        eC785 = new C785();
+        eC082 = new C082();
+        e4405 = new E4405();
+        e4513 = new E4513();
+        addElement(eC785);
+        addElement(eC082);
+        addElement(e4405);
+        addElement(e4513);
         eC785.setMandatory(true);
     }
 

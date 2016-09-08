@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class PAT extends Segment {
 
@@ -17,7 +16,12 @@ public class PAT extends Segment {
     public PAT(Boolean Mandatory) {
         super("PAT", "PAYMENT TERMS BASIS", "Function: To specify the payment terms basis.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e4279, eC110, eC112}));
+        e4279 = new E4279();
+        eC110 = new C110();
+        eC112 = new C112();
+        addElement(e4279);
+        addElement(eC110);
+        addElement(eC112);
         e4279.setMandatory(true);
     }
 

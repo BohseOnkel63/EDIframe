@@ -7,7 +7,6 @@ package UN_EDIFACT;
 
 import java.util.ArrayList;
 
-
 /**
  *
  * @author mannelini
@@ -19,17 +18,45 @@ public class Segment {
 
     private Boolean mandatory;
     private ArrayList elementList;
+    //public Object[] elementArray;
 
     public Segment(String Tag, String Description, String LongDescription) {
         this.tag = Tag;
         this.description = Description;
         this.longDescription = LongDescription;
-        this.elementList = new ArrayList<>();
+        this.elementList = new ArrayList();
     }
 
-    public void addElement(Object O) {
-        elementList.add(O);
+    public final void addElement(Element e) {
+        boolean add = this.elementList.add(e);
     }
+    
+    public final void addElement(CompositeElement e) {
+        boolean add = this.elementList.add(e);
+    }
+    /*
+    public final void addElement(Object o) {
+        //elementList.add((Object) O);
+        Element e;
+        CompositeElement ce;
+        
+        e = null;
+        ce = null;
+        
+        try {
+            if (o.getClass().isInstance(e)) {
+                 //e = (Element) o;
+                 this.elementList.add((Element) o);
+             }
+            else if (o.getClass().isInstance(ce)) {
+                 ce = (CompositeElement) o;
+                 this.elementList.add(ce);
+             }
+        } catch(ValidityException ex) {
+            throw new ValidityException(this.getTag() + "." + ex.getMessage());
+        }
+    }
+    */
 
     @Override
     public String toString() {

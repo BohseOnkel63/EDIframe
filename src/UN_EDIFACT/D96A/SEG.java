@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SEG extends Segment {
 
@@ -17,7 +16,12 @@ public class SEG extends Segment {
     public SEG(Boolean Mandatory) {
         super("SEG", "SEGMENT IDENTIFICATION", "Function: To identify a segment and give its class and");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9166, e1507, e4513}));
+        e9166 = new E9166();
+        e1507 = new E1507();
+        e4513 = new E4513();
+        addElement(e9166);
+        addElement(e1507);
+        addElement(e4513);
         e9166.setMandatory(true);
     }
 

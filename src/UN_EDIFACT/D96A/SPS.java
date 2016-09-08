@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SPS extends Segment {
 
@@ -21,7 +20,20 @@ public class SPS extends Segment {
     public SPS(Boolean Mandatory) {
         super("SPS", "SAMPLING PARAMETERS FOR SUMMARY STATISTICS", "Function: To define the sampling parameters associated with");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC526, e6074, eC512_1, eC512_2, eC512_3, eC512_4, eC512_5}));
+        eC526 = new C526();
+        e6074 = new E6074();
+        eC512_1 = new C512();
+        eC512_2 = new C512();
+        eC512_3 = new C512();
+        eC512_4 = new C512();
+        eC512_5 = new C512();
+        addElement(eC526);
+        addElement(e6074);
+        addElement(eC512_1);
+        addElement(eC512_2);
+        addElement(eC512_3);
+        addElement(eC512_4);
+        addElement(eC512_5);
     }
 
 }

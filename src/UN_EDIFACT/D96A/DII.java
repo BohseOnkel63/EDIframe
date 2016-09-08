@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class DII extends Segment {
 
@@ -20,7 +19,18 @@ public class DII extends Segment {
     public DII(Boolean Mandatory) {
         super("DII", "DIRECTORY IDENTIFICATION", "Function: To identify a directory and to give its release,");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e1056, e1058, e9148, e1476, e3453, e4513}));
+        e1056 = new E1056();
+        e1058 = new E1058();
+        e9148 = new E9148();
+        e1476 = new E1476();
+        e3453 = new E3453();
+        e4513 = new E4513();
+        addElement(e1056);
+        addElement(e1058);
+        addElement(e9148);
+        addElement(e1476);
+        addElement(e3453);
+        addElement(e4513);
         e1056.setMandatory(true);
         e1058.setMandatory(true);
     }

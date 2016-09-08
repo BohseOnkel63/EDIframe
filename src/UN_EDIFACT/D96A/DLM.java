@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class DLM extends Segment {
 
@@ -18,7 +17,14 @@ public class DLM extends Segment {
     public DLM(Boolean Mandatory) {
         super("DLM", "DELIVERY LIMITATIONS", "Function: To specify limitations on deliveries.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e4455, eC522, eC214, e4457}));
+        e4455 = new E4455();
+        eC522 = new C522();
+        eC214 = new C214();
+        e4457 = new E4457();
+        addElement(e4455);
+        addElement(eC522);
+        addElement(eC214);
+        addElement(e4457);
     }
 
 }

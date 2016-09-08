@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class AUT extends Segment {
 
@@ -16,7 +15,10 @@ public class AUT extends Segment {
     public AUT(Boolean Mandatory) {
         super("AUT", "AUTHENTICATION RESULT", "Function: To specify results of the application of an");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9280, e9282}));
+        e9280 = new E9280();
+        e9282 = new E9282();
+        addElement(e9280);
+        addElement(e9282);
         e9280.setMandatory(true);
     }
 

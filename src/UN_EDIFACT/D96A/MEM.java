@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class MEM extends Segment {
 
@@ -20,7 +19,18 @@ public class MEM extends Segment {
     public MEM(Boolean Mandatory) {
         super("MEM", "MEMBERSHIP DETAILS", "Function: To specify details about membership.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e7449, eC942, eC944, eC945, eC203, eC960}));
+        e7449 = new E7449();
+        eC942 = new C942();
+        eC944 = new C944();
+        eC945 = new C945();
+        eC203 = new C203();
+        eC960 = new C960();
+        addElement(e7449);
+        addElement(eC942);
+        addElement(eC944);
+        addElement(eC945);
+        addElement(eC203);
+        addElement(eC960);
         e7449.setMandatory(true);
     }
 

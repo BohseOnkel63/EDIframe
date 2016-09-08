@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class DMS extends Segment {
 
@@ -17,7 +16,12 @@ public class DMS extends Segment {
     public DMS(Boolean Mandatory) {
         super("DMS", "DOCUMENT/MESSAGE SUMMARY", "Function: To specify summary information relating to the");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e1004, e1001, e7240}));
+        e1004 = new E1004();
+        e1001 = new E1001();
+        e7240 = new E7240();
+        addElement(e1004);
+        addElement(e1001);
+        addElement(e7240);
     }
 
 }

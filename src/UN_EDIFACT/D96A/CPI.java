@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CPI extends Segment {
 
@@ -17,7 +16,12 @@ public class CPI extends Segment {
     public CPI(Boolean Mandatory) {
         super("CPI", "CHARGE PAYMENT INSTRUCTIONS", "Function: To identify a charge.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC229, eC231, e4237}));
+        eC229 = new C229();
+        eC231 = new C231();
+        e4237 = new E4237();
+        addElement(eC229);
+        addElement(eC231);
+        addElement(e4237);
     }
 
 }

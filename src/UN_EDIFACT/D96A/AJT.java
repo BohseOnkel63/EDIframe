@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class AJT extends Segment {
 
@@ -16,7 +15,10 @@ public class AJT extends Segment {
     public AJT(Boolean Mandatory) {
         super("AJT", "ADJUSTMENT DETAILS", "Function: To identify the reason for an adjustment.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e4465, e1082}));
+        e4465 = new E4465();
+        e1082 = new E1082();
+        addElement(e4465);
+        addElement(e1082);
         e4465.setMandatory(true);
     }
 

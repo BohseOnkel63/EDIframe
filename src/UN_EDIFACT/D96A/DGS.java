@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class DGS extends Segment {
 
@@ -27,7 +26,32 @@ public class DGS extends Segment {
     public DGS(Boolean Mandatory) {
         super("DGS", "DANGEROUS GOODS", "Function: To identify dangerous goods.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e8273, eC205, eC234, eC223, e8339, e8364, e8410, e8126, eC235, eC236, e8255, e8325, e8211}));
+        e8273 = new E8273();
+        eC205 = new C205();
+        eC234 = new C234();
+        eC223 = new C223();
+        e8339 = new E8339();
+        e8364 = new E8364();
+        e8410 = new E8410();
+        e8126 = new E8126();
+        eC235 = new C235();
+        eC236 = new C236();
+        e8255 = new E8255();
+        e8325 = new E8325();
+        e8211 = new E8211();
+        addElement(e8273);
+        addElement(eC205);
+        addElement(eC234);
+        addElement(eC223);
+        addElement(e8339);
+        addElement(e8364);
+        addElement(e8410);
+        addElement(e8126);
+        addElement(eC235);
+        addElement(eC236);
+        addElement(e8255);
+        addElement(e8325);
+        addElement(e8211);
     }
 
 }

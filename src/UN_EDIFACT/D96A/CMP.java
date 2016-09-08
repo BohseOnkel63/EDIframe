@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CMP extends Segment {
 
@@ -17,7 +16,12 @@ public class CMP extends Segment {
     public CMP(Boolean Mandatory) {
         super("CMP", "COMPOSITE DATA ELEMENT IDENTIFICATION", "Function: To identify a composite data element and to give its");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9146, e1507, e4513}));
+        e9146 = new E9146();
+        e1507 = new E1507();
+        e4513 = new E4513();
+        addElement(e9146);
+        addElement(e1507);
+        addElement(e4513);
         e9146.setMandatory(true);
     }
 

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class PAC extends Segment {
 
@@ -19,7 +18,16 @@ public class PAC extends Segment {
     public PAC(Boolean Mandatory) {
         super("PAC", "PACKAGE", "Function: To describe the number and type of packages/physical");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e7224, eC531, eC202, eC402, eC532}));
+        e7224 = new E7224();
+        eC531 = new C531();
+        eC202 = new C202();
+        eC402 = new C402();
+        eC532 = new C532();
+        addElement(e7224);
+        addElement(eC531);
+        addElement(eC202);
+        addElement(eC402);
+        addElement(eC532);
     }
 
 }

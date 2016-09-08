@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class REL extends Segment {
 
@@ -16,7 +15,10 @@ public class REL extends Segment {
     public REL(Boolean Mandatory) {
         super("REL", "RELATIONSHIP", "Function: To identify the direct relationship between the");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9141, eC941}));
+        e9141 = new E9141();
+        eC941 = new C941();
+        addElement(e9141);
+        addElement(eC941);
         e9141.setMandatory(true);
     }
 

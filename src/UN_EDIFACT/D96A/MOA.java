@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class MOA extends Segment {
 
@@ -15,7 +14,8 @@ public class MOA extends Segment {
     public MOA(Boolean Mandatory) {
         super("MOA", "MONETARY AMOUNT", "Function: To specify a monetary amount.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC516}));
+        eC516 = new C516();
+        addElement(eC516);
         eC516.setMandatory(true);
     }
 

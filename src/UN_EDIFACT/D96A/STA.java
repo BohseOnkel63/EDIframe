@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class STA extends Segment {
 
@@ -16,7 +15,10 @@ public class STA extends Segment {
     public STA(Boolean Mandatory) {
         super("STA", "STATISTICS", "Function: To transmit summary statistics related to a specified");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e6331, eC527}));
+        e6331 = new E6331();
+        eC527 = new C527();
+        addElement(e6331);
+        addElement(eC527);
         e6331.setMandatory(true);
     }
 

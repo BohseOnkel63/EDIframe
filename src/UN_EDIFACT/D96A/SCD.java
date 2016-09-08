@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SCD extends Segment {
 
@@ -21,7 +20,20 @@ public class SCD extends Segment {
     public SCD(Boolean Mandatory) {
         super("SCD", "STRUCTURE COMPONENT DEFINITION", "Function: To specify a component of a data structure (e.g. an");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e7497, eC786, eC082, e4405, e1222, eC778, eC240}));
+        e7497 = new E7497();
+        eC786 = new C786();
+        eC082 = new C082();
+        e4405 = new E4405();
+        e1222 = new E1222();
+        eC778 = new C778();
+        eC240 = new C240();
+        addElement(e7497);
+        addElement(eC786);
+        addElement(eC082);
+        addElement(e4405);
+        addElement(e1222);
+        addElement(eC778);
+        addElement(eC240);
         e7497.setMandatory(true);
     }
 

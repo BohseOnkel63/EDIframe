@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CNI extends Segment {
 
@@ -17,7 +16,12 @@ public class CNI extends Segment {
     public CNI(Boolean Mandatory) {
         super("CNI", "CONSIGNMENT INFORMATION", "Function: To identify one consignment.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e1490, eC503, e1312}));
+        e1490 = new E1490();
+        eC503 = new C503();
+        e1312 = new E1312();
+        addElement(e1490);
+        addElement(eC503);
+        addElement(e1312);
     }
 
 }

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class ATT extends Segment {
 
@@ -17,7 +16,12 @@ public class ATT extends Segment {
     public ATT(Boolean Mandatory) {
         super("ATT", "ATTRIBUTE", "Function: To identify a specific attribute.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9017, eC955, eC956}));
+        e9017 = new E9017();
+        eC955 = new C955();
+        eC956 = new C956();
+        addElement(e9017);
+        addElement(eC955);
+        addElement(eC956);
         e9017.setMandatory(true);
     }
 

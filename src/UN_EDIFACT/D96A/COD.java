@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class COD extends Segment {
 
@@ -16,7 +15,10 @@ public class COD extends Segment {
     public COD(Boolean Mandatory) {
         super("COD", "COMPONENT DETAILS", "Function: To provide component details of an object (e.g.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC823, eC824}));
+        eC823 = new C823();
+        eC824 = new C824();
+        addElement(eC823);
+        addElement(eC824);
     }
 
 }

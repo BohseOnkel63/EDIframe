@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class PCI extends Segment {
 
@@ -18,7 +17,14 @@ public class PCI extends Segment {
     public PCI(Boolean Mandatory) {
         super("PCI", "PACKAGE IDENTIFICATION", "Function: To specify markings and labels on individual packages");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e4233, eC210, e8275, eC827}));
+        e4233 = new E4233();
+        eC210 = new C210();
+        e8275 = new E8275();
+        eC827 = new C827();
+        addElement(e4233);
+        addElement(eC210);
+        addElement(e8275);
+        addElement(eC827);
     }
 
 }

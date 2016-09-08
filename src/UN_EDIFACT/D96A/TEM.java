@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class TEM extends Segment {
 
@@ -23,7 +22,24 @@ public class TEM extends Segment {
     public TEM(Boolean Mandatory) {
         super("TEM", "TEST METHOD", "Function: To describe the nature of the test performed.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC244, e4419, e3077, e6311, e7188, eC515, eC219, e8332, e8341}));
+        eC244 = new C244();
+        e4419 = new E4419();
+        e3077 = new E3077();
+        e6311 = new E6311();
+        e7188 = new E7188();
+        eC515 = new C515();
+        eC219 = new C219();
+        e8332 = new E8332();
+        e8341 = new E8341();
+        addElement(eC244);
+        addElement(e4419);
+        addElement(e3077);
+        addElement(e6311);
+        addElement(e7188);
+        addElement(eC515);
+        addElement(eC219);
+        addElement(e8332);
+        addElement(e8341);
     }
 
 }

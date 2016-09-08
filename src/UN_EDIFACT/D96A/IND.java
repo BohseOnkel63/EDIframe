@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class IND extends Segment {
 
@@ -16,7 +15,10 @@ public class IND extends Segment {
     public IND(Boolean Mandatory) {
         super("IND", "INDEX DETAILS", "Function: To specify an index.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC545, eC546}));
+        eC545 = new C545();
+        eC546 = new C546();
+        addElement(eC545);
+        addElement(eC546);
     }
 
 }

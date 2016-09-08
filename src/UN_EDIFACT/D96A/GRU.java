@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class GRU extends Segment {
 
@@ -19,7 +18,16 @@ public class GRU extends Segment {
     public GRU(Boolean Mandatory) {
         super("GRU", "SEGMENT GROUP USAGE DETAILS", "Function: To specify the usage of a segment group within a");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9164, e7299, e6176, e4513, e1050}));
+        e9164 = new E9164();
+        e7299 = new E7299();
+        e6176 = new E6176();
+        e4513 = new E4513();
+        e1050 = new E1050();
+        addElement(e9164);
+        addElement(e7299);
+        addElement(e6176);
+        addElement(e4513);
+        addElement(e1050);
         e9164.setMandatory(true);
     }
 

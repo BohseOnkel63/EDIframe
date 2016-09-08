@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SAL extends Segment {
 
@@ -15,7 +14,8 @@ public class SAL extends Segment {
     public SAL(Boolean Mandatory) {
         super("SAL", "REMUNERATION TYPE IDENTIFICATION", "Function: Identification of a remuneration type.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC049}));
+        eC049 = new C049();
+        addElement(eC049);
     }
 
 }

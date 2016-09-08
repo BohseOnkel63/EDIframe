@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class ASI extends Segment {
 
@@ -18,7 +17,14 @@ public class ASI extends Segment {
     public ASI(Boolean Mandatory) {
         super("ASI", "ARRAY STRUCTURE IDENTIFICATION", "Function: To identify the structure of an array.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC779, eC082, e4405, e4513}));
+        eC779 = new C779();
+        eC082 = new C082();
+        e4405 = new E4405();
+        e4513 = new E4513();
+        addElement(eC779);
+        addElement(eC082);
+        addElement(e4405);
+        addElement(e4513);
         eC779.setMandatory(true);
     }
 

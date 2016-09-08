@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class EQD extends Segment {
 
@@ -20,7 +19,18 @@ public class EQD extends Segment {
     public EQD(Boolean Mandatory) {
         super("EQD", "EQUIPMENT DETAILS", "Function: To identify a unit of equipment.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e8053, eC237, eC224, e8077, e8249, e8169}));
+        e8053 = new E8053();
+        eC237 = new C237();
+        eC224 = new C224();
+        e8077 = new E8077();
+        e8249 = new E8249();
+        e8169 = new E8169();
+        addElement(e8053);
+        addElement(eC237);
+        addElement(eC224);
+        addElement(e8077);
+        addElement(e8249);
+        addElement(e8169);
         e8053.setMandatory(true);
     }
 

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class RCS extends Segment {
 
@@ -17,7 +16,12 @@ public class RCS extends Segment {
     public RCS(Boolean Mandatory) {
         super("RCS", "REQUIREMENTS AND CONDITIONS", "Function: To specify sector/subject requirements and conditions.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e7293, eC550, e1229}));
+        e7293 = new E7293();
+        eC550 = new C550();
+        e1229 = new E1229();
+        addElement(e7293);
+        addElement(eC550);
+        addElement(e1229);
         e7293.setMandatory(true);
     }
 

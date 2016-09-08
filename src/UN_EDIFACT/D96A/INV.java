@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class INV extends Segment {
 
@@ -19,7 +18,16 @@ public class INV extends Segment {
     public INV(Boolean Mandatory) {
         super("INV", "INVENTORY MANAGEMENT RELATED DETAILS", "Function: To provide the different information related to the");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e4501, e7491, e4499, e4503, eC522}));
+        e4501 = new E4501();
+        e7491 = new E7491();
+        e4499 = new E4499();
+        e4503 = new E4503();
+        eC522 = new C522();
+        addElement(e4501);
+        addElement(e7491);
+        addElement(e4499);
+        addElement(e4503);
+        addElement(eC522);
     }
 
 }

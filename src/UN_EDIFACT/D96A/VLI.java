@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class VLI extends Segment {
 
@@ -22,7 +21,22 @@ public class VLI extends Segment {
     public VLI(Boolean Mandatory) {
         super("VLI", "VALUE LIST IDENTIFICATION", "Function: To identify a coded or non coded value list.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC780, eC082, e4405, e1514, e1507, e1505, eC240, e4513}));
+        eC780 = new C780();
+        eC082 = new C082();
+        e4405 = new E4405();
+        e1514 = new E1514();
+        e1507 = new E1507();
+        e1505 = new E1505();
+        eC240 = new C240();
+        e4513 = new E4513();
+        addElement(eC780);
+        addElement(eC082);
+        addElement(e4405);
+        addElement(e1514);
+        addElement(e1507);
+        addElement(e1505);
+        addElement(eC240);
+        addElement(e4513);
         eC780.setMandatory(true);
     }
 

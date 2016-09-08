@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class CDV extends Segment {
 
@@ -17,7 +16,12 @@ public class CDV extends Segment {
     public CDV(Boolean Mandatory) {
         super("CDV", "CODE VALUE DEFINITION", "Function: To provide information related to a code value.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9426, e9434, e4513}));
+        e9426 = new E9426();
+        e9434 = new E9434();
+        e4513 = new E4513();
+        addElement(e9426);
+        addElement(e9434);
+        addElement(e4513);
         e9426.setMandatory(true);
     }
 

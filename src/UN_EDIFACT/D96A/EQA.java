@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class EQA extends Segment {
 
@@ -16,7 +15,10 @@ public class EQA extends Segment {
     public EQA(Boolean Mandatory) {
         super("EQA", "ATTACHED EQUIPMENT", "Function: To specify attached or related equipment.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e8053, eC237}));
+        e8053 = new E8053();
+        eC237 = new C237();
+        addElement(e8053);
+        addElement(eC237);
         e8053.setMandatory(true);
     }
 

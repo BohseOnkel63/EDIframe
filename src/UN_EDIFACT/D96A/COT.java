@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class COT extends Segment {
 
@@ -19,7 +18,16 @@ public class COT extends Segment {
     public COT(Boolean Mandatory) {
         super("COT", "CONTRIBUTION DETAILS", "Function: To specify details about membership contributions.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e5047, eC953, eC522, eC203, eC960}));
+        e5047 = new E5047();
+        eC953 = new C953();
+        eC522 = new C522();
+        eC203 = new C203();
+        eC960 = new C960();
+        addElement(e5047);
+        addElement(eC953);
+        addElement(eC522);
+        addElement(eC203);
+        addElement(eC960);
         e5047.setMandatory(true);
     }
 

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SEL extends Segment {
 
@@ -17,7 +16,12 @@ public class SEL extends Segment {
     public SEL(Boolean Mandatory) {
         super("SEL", "SEAL NUMBER", "Function: To specify a seal number related to equipment.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9308, eC215, e4517}));
+        e9308 = new E9308();
+        eC215 = new C215();
+        e4517 = new E4517();
+        addElement(e9308);
+        addElement(eC215);
+        addElement(e4517);
         e9308.setMandatory(true);
     }
 

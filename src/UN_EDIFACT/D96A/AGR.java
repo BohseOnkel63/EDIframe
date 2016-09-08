@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class AGR extends Segment {
 
@@ -16,7 +15,10 @@ public class AGR extends Segment {
     public AGR(Boolean Mandatory) {
         super("AGR", "AGREEMENT IDENTIFICATION", "Function: To specify the agreement details.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC543, e9419}));
+        eC543 = new C543();
+        e9419 = new E9419();
+        addElement(eC543);
+        addElement(e9419);
     }
 
 }

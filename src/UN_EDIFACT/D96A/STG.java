@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class STG extends Segment {
 
@@ -17,7 +16,12 @@ public class STG extends Segment {
     public STG(Boolean Mandatory) {
         super("STG", "STAGES", "Function: To provide information related to the kind of stage in");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9421, e6426, e6428}));
+        e9421 = new E9421();
+        e6426 = new E6426();
+        e6428 = new E6428();
+        addElement(e9421);
+        addElement(e6426);
+        addElement(e6428);
         e9421.setMandatory(true);
     }
 

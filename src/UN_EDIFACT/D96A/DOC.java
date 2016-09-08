@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class DOC extends Segment {
 
@@ -19,7 +18,16 @@ public class DOC extends Segment {
     public DOC(Boolean Mandatory) {
         super("DOC", "DOCUMENT/MESSAGE DETAILS", "Function: To identify documents, either printed, electronically");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC002, eC503, e3153, e1220, e1218}));
+        eC002 = new C002();
+        eC503 = new C503();
+        e3153 = new E3153();
+        e1220 = new E1220();
+        e1218 = new E1218();
+        addElement(eC002);
+        addElement(eC503);
+        addElement(e3153);
+        addElement(e1220);
+        addElement(e1218);
         eC002.setMandatory(true);
     }
 

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class GOR extends Segment {
 
@@ -19,7 +18,16 @@ public class GOR extends Segment {
     public GOR(Boolean Mandatory) {
         super("GOR", "GOVERNMENTAL REQUIREMENTS", "Function: To indicate the requirement for a specific govermental");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e8323, eC232_1, eC232_2, eC232_3, eC232_4}));
+        e8323 = new E8323();
+        eC232_1 = new C232();
+        eC232_2 = new C232();
+        eC232_3 = new C232();
+        eC232_4 = new C232();
+        addElement(e8323);
+        addElement(eC232_1);
+        addElement(eC232_2);
+        addElement(eC232_3);
+        addElement(eC232_4);
     }
 
 }

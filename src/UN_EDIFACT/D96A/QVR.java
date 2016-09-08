@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class QVR extends Segment {
 
@@ -17,7 +16,12 @@ public class QVR extends Segment {
     public QVR(Boolean Mandatory) {
         super("QVR", "QUANTITY VARIANCES", "Function: To specify item details relating to quantity");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC279, e4221, eC960}));
+        eC279 = new C279();
+        e4221 = new E4221();
+        eC960 = new C960();
+        addElement(eC279);
+        addElement(e4221);
+        addElement(eC960);
     }
 
 }

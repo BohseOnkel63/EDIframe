@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class FNS extends Segment {
 
@@ -18,7 +17,14 @@ public class FNS extends Segment {
     public FNS(Boolean Mandatory) {
         super("FNS", "FOOTNOTE SET", "Function: To identify a set of footnotes.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC783, eC082, e4405, e4513}));
+        eC783 = new C783();
+        eC082 = new C082();
+        e4405 = new E4405();
+        e4513 = new E4513();
+        addElement(eC783);
+        addElement(eC082);
+        addElement(e4405);
+        addElement(e4513);
         eC783.setMandatory(true);
     }
 

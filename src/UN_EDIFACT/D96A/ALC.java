@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class ALC extends Segment {
 
@@ -19,7 +18,16 @@ public class ALC extends Segment {
     public ALC(Boolean Mandatory) {
         super("ALC", "ALLOWANCE OR CHARGE", "Function: To identify allowance or charge details.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e5463, eC552, e4471, e1227, eC214}));
+        e5463 = new E5463();
+        eC552 = new C552();
+        e4471 = new E4471();
+        e1227 = new E1227();
+        eC214 = new C214();
+        addElement(e5463);
+        addElement(eC552);
+        addElement(e4471);
+        addElement(e1227);
+        addElement(eC214);
         e5463.setMandatory(true);
     }
 

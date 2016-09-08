@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class IMD extends Segment {
 
@@ -18,7 +17,14 @@ public class IMD extends Segment {
     public IMD(Boolean Mandatory) {
         super("IMD", "ITEM DESCRIPTION", "Function: To describe an item in either an industry or free");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e7077, e7081, eC273, e7383}));
+        e7077 = new E7077();
+        e7081 = new E7081();
+        eC273 = new C273();
+        e7383 = new E7383();
+        addElement(e7077);
+        addElement(e7081);
+        addElement(eC273);
+        addElement(e7383);
     }
 
 }

@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class STS extends Segment {
 
@@ -21,7 +20,20 @@ public class STS extends Segment {
     public STS(Boolean Mandatory) {
         super("STS", "STATUS", "Function: To specify the type of industry sector/application to");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC601, eC555, eC556_1, eC556_2, eC556_3, eC556_4, eC556_5}));
+        eC601 = new C601();
+        eC555 = new C555();
+        eC556_1 = new C556();
+        eC556_2 = new C556();
+        eC556_3 = new C556();
+        eC556_4 = new C556();
+        eC556_5 = new C556();
+        addElement(eC601);
+        addElement(eC555);
+        addElement(eC556_1);
+        addElement(eC556_2);
+        addElement(eC556_3);
+        addElement(eC556_4);
+        addElement(eC556_5);
     }
 
 }

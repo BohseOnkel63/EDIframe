@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class EMP extends Segment {
 
@@ -20,7 +19,18 @@ public class EMP extends Segment {
     public EMP(Boolean Mandatory) {
         super("EMP", "EMPLOYMENT DETAILS", "Function: To specify employment details.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{e9003, eC948, eC951, eC950, e3494, e9035}));
+        e9003 = new E9003();
+        eC948 = new C948();
+        eC951 = new C951();
+        eC950 = new C950();
+        e3494 = new E3494();
+        e9035 = new E9035();
+        addElement(e9003);
+        addElement(eC948);
+        addElement(eC951);
+        addElement(eC950);
+        addElement(e3494);
+        addElement(e9035);
         e9003.setMandatory(true);
     }
 

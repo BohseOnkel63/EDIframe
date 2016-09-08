@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class EQN extends Segment {
 
@@ -15,7 +14,8 @@ public class EQN extends Segment {
     public EQN(Boolean Mandatory) {
         super("EQN", "NUMBER OF UNITS", "Function: To specify the number of units.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC523}));
+        eC523 = new C523();
+        addElement(eC523);
         eC523.setMandatory(true);
     }
 

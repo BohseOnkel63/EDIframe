@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class INP extends Segment {
 
@@ -18,7 +17,14 @@ public class INP extends Segment {
     public INP(Boolean Mandatory) {
         super("INP", "PARTIES TO INSTRUCTION", "Function: To specify parties to an instruction and where");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC849, eC522, eC850, e1229}));
+        eC849 = new C849();
+        eC522 = new C522();
+        eC850 = new C850();
+        e1229 = new E1229();
+        addElement(eC849);
+        addElement(eC522);
+        addElement(eC850);
+        addElement(e1229);
     }
 
 }

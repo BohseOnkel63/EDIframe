@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class HAN extends Segment {
 
@@ -16,7 +15,10 @@ public class HAN extends Segment {
     public HAN(Boolean Mandatory) {
         super("HAN", "HANDLING INSTRUCTIONS", "Function: To specify handling and where necessary, notify");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC524, eC218}));
+        eC524 = new C524();
+        eC218 = new C218();
+        addElement(eC524);
+        addElement(eC218);
     }
 
 }

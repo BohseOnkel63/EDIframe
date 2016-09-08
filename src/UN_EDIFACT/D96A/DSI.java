@@ -1,8 +1,7 @@
 package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class DSI extends Segment {
 
@@ -19,7 +18,16 @@ public class DSI extends Segment {
     public DSI(Boolean Mandatory) {
         super("DSI", "DATA SET IDENTIFICATION", "Function: To identify a data set.");
         this.setMandatory(Mandatory);
-        super.setElementList((ArrayList) Arrays.asList(new Object[]{eC782, eC082, e4405, eC286, e1060}));
+        eC782 = new C782();
+        eC082 = new C082();
+        e4405 = new E4405();
+        eC286 = new C286();
+        e1060 = new E1060();
+        addElement(eC782);
+        addElement(eC082);
+        addElement(e4405);
+        addElement(eC286);
+        addElement(e1060);
         eC782.setMandatory(true);
     }
 
