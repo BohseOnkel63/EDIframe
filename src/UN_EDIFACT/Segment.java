@@ -68,9 +68,21 @@ public class Segment {
         e = null;
         ce = null;
         
-        System.out.println("ElementList.size()=" + elementList.size());
+        //System.out.println("Segmentti " + this.tag);
+        //System.out.println("ElementList.size()=" + elementList.size());
+        output = this.tag;
+        
         for (Object o : elementList ) {
-            if (o.getClass().isInstance(e)) {
+            //System.out.println("Objektin yksinkert. nimi: " + o.getClass().getSimpleName());
+            //System.out.println("Objektin nimi:            " + o.getClass());
+            //System.out.println("Objektin indeksi:         " + elementList.indexOf(o));
+            if (elementList.indexOf(o) == 0) {
+                output = output + "+" + o.toString();
+            } else {
+                output = output + "+" + o.toString();
+            }
+            /*if (o.getClass().isInstance(e)) {
+                System.out.println("Objekti on " + o.getClass().getCanonicalName());
                 e = (Element) o;
                 if (elementList.indexOf(o) == 0) {
                     output = e.toString() + "+";
@@ -85,9 +97,10 @@ public class Segment {
                 } else {
                     output = output + ce.toString() + "+";
                 }
-            }
+            }*/
         }
-        return EdiFunctions.trim(output);
+        //return output + "'";
+        return EdiFunctions.trim(output) + "'";
     }
     
     
@@ -98,19 +111,26 @@ public class Segment {
         e = null;
         ce = null;
         
-        try {
-            for (Object o : elementList ) {
-                if (o.getClass().isInstance(e)) {
+        for (Object o : elementList ) {
+           try {
+               try {
+                    e = (Element) o;
+                    e.validate();
+               } catch(ClassCastException ex) {
+                   ce = (CompositeElement) o;
+                   ce.validate();
+               }
+                /*if (o.getClass().isInstance(e)) {
                     e = (Element) o;
                     e.validate();
                 }
                 if (o.getClass().isInstance(ce)) {
                     ce = (CompositeElement) o;
                     ce.validate();
-                }
+                }*/
+            } catch(ValidityException ex) {
+                throw new ValidityException(this.getTag() + "." + ex.getMessage());
             }
-        } catch(ValidityException ex) {
-            throw new ValidityException(this.getTag() + "." + ex.getMessage());
         }
     }
     
