@@ -5,11 +5,11 @@
  */
 package EDIframe;
 
-import UN_EDIFACT.D96A.BGM;
-import UN_EDIFACT.D96A.DTM;
+import UN_EDIFACT.D96A.*;
 import UN_EDIFACT.ValidityException;
-import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,19 +25,50 @@ public class EDIframe {
         Properties eProperties;
         eProperties = new Properties();
         
-        BGM sBGM = new BGM();
+        BGM sBGM;
+        sBGM = new BGM();
+        DTM sDTM;
+        sDTM = new DTM();
+        FTX sFTX;
+        sFTX = new FTX();
+        NAD sNAD;
+        sNAD = new NAD();
+        
+        
         sBGM.eC002.e1001.setContent("380");
-        sBGM.eC002.e1000.setContent("1000");
+        sBGM.eC002.e3055.setContent("123");
+        //sBGM.eC002.e1000.setContent("1000");
         sBGM.e1004.setContent("123456789");
         sBGM.e1225.setContent("9");
-        //DTM sDTM = new DTM("137", "20150515", "102");
+        
+        sDTM.eC507.e2005.setContent("334");
+        sDTM.eC507.e2380.setContent("20160909");
+        sDTM.eC507.e2379.setContent("102");
         try {
             sBGM.validate();
-            //sDTM.validate();
-            System.out.println(sBGM.toString());
+            sDTM.validate();
+            System.err.println("BGM: " + sBGM.toString());
+            System.err.println("DTM: " + sDTM.toString());
             //System.out.println(sDTM.toString());
         } catch(ValidityException ve) {
-            System.out.println("Error: " + ve.getMessage());
+            System.err.println("Error: " + ve.getMessage());
+        }
+        System.out.println(sNAD.getDescription() + "\n" + sNAD.getLongDescription());
+        sNAD.e3035.setContent("BY");
+        sNAD.eC082.e3039.setContent("003701234567");
+        sNAD.eC082.e3055.setContent("92");
+        sNAD.eC080.e3036_1.setContent("CGI");
+        sNAD.eC080.e3036_2.setContent("Ilkka Mannelin");
+        sNAD.eC059.e3042_1.setContent("Karvaamokuja 2");
+        sNAD.e3164.setContent("Helsinki");
+        sNAD.e3207.setContent("FI");
+        sNAD.e3251.setContent("00380");
+        try {
+            sNAD.validate();
+            System.err.println("NAD-segmentti: " + sNAD);
+        } catch (ValidityException ex) {
+            System.err.println("Error: " + ex.getMessage());
+            //Logger.getLogger(EDIframe.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -74,8 +105,7 @@ public class EDIframe {
         return response;
     }
     
-    
-    private static void printHTMLheader() {
+     private static void printHTMLheader() {
         System.out.println("<!doctype html public \"-//W3C//DTD HTML 3.2 Final//EN\">");
         System.out.println("<html>");
         System.out.println("<head><title>EDI-frame info</title>");

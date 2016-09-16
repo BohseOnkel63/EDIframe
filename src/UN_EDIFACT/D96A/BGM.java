@@ -2,7 +2,6 @@ package UN_EDIFACT.D96A;
 
 import UN_EDIFACT.Segment;
 
-
 public class BGM extends Segment {
 
     public C002 eC002;
