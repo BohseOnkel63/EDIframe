@@ -35,10 +35,7 @@ public class CompositeElement {
         output = "";
         //ArrayList<Element> eList = getElementList();
         
-        System.out.println("ElementList.size()=" + elementList.size());
         for (Element e : elementList ) {
-            System.out.println(e.getClass().getCanonicalName() + " " + e.getDescription() + "  " + e.getFormatString());
-            System.out.println("Objektin indeksi: " + elementList.indexOf(e));
             if (elementList.indexOf(e) == 0) {
                 output = e.toString() + ":";
             } else {
