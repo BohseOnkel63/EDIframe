@@ -16,6 +16,7 @@ public class CompositeElement {
     private String description;
     private String longDescription;
     private Boolean mandatory;
+    private Boolean empty;
     private ArrayList<Element> elementList;
 
     public CompositeElement(String Tag, String Description, String LongDescription) {

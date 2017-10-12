@@ -19,6 +19,7 @@ public class Element implements ElementInterface {
     private String content;
     private boolean mandatory;
     private boolean valid;
+    private boolean empty;
 
     @Override
     public String getNote() {
@@ -44,6 +45,7 @@ public class Element implements ElementInterface {
         this.setFormatString(FormatString);
         this.setLongDescription(LongDescription);
         this.setNote(Note);
+        this.empty = true;
     }
     
     public Element(String Tag, String Description, String FormatString, String LongDescription) {
@@ -99,7 +101,15 @@ public class Element implements ElementInterface {
      */
     @Override
     public void setContent(String Content) {
-        this.content = Content;
+        if (Content == null) {
+            return;
+        }
+        if (Content.isEmpty()) {
+            // do nothing
+        } else {
+            this.content = Content;
+            this.empty = false;
+        }
     }
     
     /**
@@ -160,6 +170,9 @@ public class Element implements ElementInterface {
         this.mandatory = Mandatory;
     }
 
+    public final void setEmpty(boolean Empty) {
+        this.empty = Empty;
+    }
     /**
      *
      * @return
@@ -177,6 +190,13 @@ public class Element implements ElementInterface {
         return this.valid;
     }
 
+    /**
+     * 
+     * @return
+     */
+    public boolean isEmpty() {
+        return this.empty;
+    }
     /**
      *
      * @return
