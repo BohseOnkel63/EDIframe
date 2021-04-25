@@ -70,18 +70,22 @@ public class Element implements ElementInterface {
     }
 
     
-    private int getMinLength() {
+    @SuppressWarnings("unused")
+	private int getMinLength() {
         return minLength;
     }
 
-    private void setMinLength(int MinLength) {
+    @SuppressWarnings("unused")
+	private void setMinLength(int MinLength) {
         this.minLength = MinLength;
     }
 
+    @SuppressWarnings("unused")
     private int getMaxLength() {
         return maxLength;
     }
 
+    @SuppressWarnings("unused")
     private void setMaxLength(int MaxLength) {
         this.maxLength = MaxLength;
     }
